@@ -14,5 +14,5 @@ class LinearClassifier(nn.Module):
     @torch.no_grad()
     def predict(self, x: torch.Tensor) -> torch.Tensor:
         logits = self(x)
-        
+
         return (logits >= 0).long().squeeze(-1)

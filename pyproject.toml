@@ -6,10 +6,9 @@ build-backend = "setuptools.build_meta"
 name = "kagglekit"
 version = "0.1.0"
 description = "Reusable PyTorch training utilities for Kaggle competition notebooks"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = [
     "torch",
-    "pandas",
 ]
 
 [tool.setuptools.packages.find]

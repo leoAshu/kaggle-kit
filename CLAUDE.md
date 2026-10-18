@@ -15,7 +15,7 @@ Workspace for Kaggle competitions, built with PyTorch. It has two parts:
 
 `competitions/*/data/` and `competitions/*/submissions/` are gitignored. On a fresh clone, download the raw data with `kaggle competitions download -c titanic -p competitions/titanic/data && unzip competitions/titanic/data/titanic.zip -d competitions/titanic/data`, then run `00_eda_prep` to regenerate the `.pt` files.
 
-There is no test suite or linter.
+There is no test suite. Lint, format and type-check with `ruff check .`, `ruff format .` and `pyright`, configured in `ruff.toml` and `pyrightconfig.json`. Ruff skips notebooks and uses single quotes.
 
 ## Environment
 
@@ -29,7 +29,7 @@ There is no test suite or linter.
 Import these from `kagglekit` instead of redefining them in notebooks:
 - `Dataset` wraps tensors into train/val `DataLoader`s.
 - `LinearClassifier` follows the model convention: `forward` returns logits, and `predict()` returns 0/1 labels.
-- `Trainer.fit(model, data)` runs the epoch loop on CUDA when available and returns a per-epoch history DataFrame: `train_loss`, plus `val_loss` and `val_accuracy` when validation data is given.
+- `Trainer.fit(model, data)` runs the epoch loop on CUDA when available and returns a history dict of per-epoch lists: `train_loss`, plus `val_loss` and `val_accuracy` when validation data is given. Notebooks wrap it in `pd.DataFrame(history)` to view it.
 - `accuracy` scores predictions against targets.
 
 Add new reusable models and helpers to the package. Code specific to one experiment stays in its notebook.

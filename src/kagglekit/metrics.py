@@ -9,6 +9,6 @@ def accuracy(
     targets = targets.reshape(-1)
 
     if predictions.numel() != targets.numel():
-        raise ValueError("Predictions and targets must have equal sizes.")
+        raise ValueError('Predictions and targets must have equal sizes.')
 
     return (predictions == targets).float().mean().item()
