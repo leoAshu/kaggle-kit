@@ -6,4 +6,4 @@ seaborn
 torch
 torchvision
 kaggle
--e ../.
+-e .
