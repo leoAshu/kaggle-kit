@@ -12,7 +12,7 @@ class LinearClassifier(nn.Module):
         return self.linear(X)
 
     @torch.no_grad()
-    def predict(self, x: torch.Tensor) -> torch.Tensor:
-        logits = self(x)
+    def predict(self, X: torch.Tensor) -> torch.Tensor:
+        logits = self(X)
 
         return (logits >= 0).long().squeeze(-1)
