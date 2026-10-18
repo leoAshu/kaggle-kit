@@ -1,6 +1,5 @@
 import pandas as pd
 import torch
-from IPython.display import display
 from torch import nn
 
 from kagglekit.data import Dataset
@@ -80,8 +79,9 @@ class Trainer:
                 val_losses.append(val_loss / len(val_loader.dataset))
                 val_accs.append(val_acc / len(val_loader.dataset))
         
-        display(pd.DataFrame({
-            'train_loss': train_losses,
-            'val_loss': val_losses,
-            'val_accuracy': val_accs
-        }))
+        history = {'train_loss': train_losses}
+        if val_loader is not None:
+            history['val_loss'] = val_losses
+            history['val_accuracy'] = val_accs
+
+        return pd.DataFrame(history)

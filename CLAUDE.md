@@ -29,7 +29,7 @@ There is no test suite or linter.
 Import these from `kagglekit` instead of redefining them in notebooks:
 - `Dataset` wraps tensors into train/val `DataLoader`s.
 - `LinearClassifier` follows the model convention: `forward` returns logits, and `predict()` returns 0/1 labels.
-- `Trainer.fit(model, data)` runs the epoch loop on CUDA when available and uses `IPython.display` to show a per-epoch DataFrame of train loss, val loss, and val accuracy.
+- `Trainer.fit(model, data)` runs the epoch loop on CUDA when available and returns a per-epoch history DataFrame: `train_loss`, plus `val_loss` and `val_accuracy` when validation data is given.
 - `accuracy` scores predictions against targets.
 
 Add new reusable models and helpers to the package. Code specific to one experiment stays in its notebook.
