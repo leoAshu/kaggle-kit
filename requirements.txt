@@ -1,3 +1,5 @@
+ruff
+pyright
 notebook
 numpy
 pandas
@@ -7,5 +9,3 @@ torch
 torchvision
 kaggle
 -e .
-ruff
-pyright

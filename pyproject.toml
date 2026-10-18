@@ -8,6 +8,8 @@ version = "0.1.0"
 description = "Reusable PyTorch training utilities for Kaggle competition notebooks"
 requires-python = ">=3.11"
 dependencies = [
+    "matplotlib",
+    "pandas",
     "torch",
 ]
 
