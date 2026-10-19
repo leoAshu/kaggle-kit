@@ -28,7 +28,7 @@ There is no test suite. Lint, format and type-check with `ruff check .`, `ruff f
 
 Import these from `kagglekit` instead of redefining them in notebooks:
 - `Dataset` wraps tensors into train/val `DataLoader`s.
-- `LinearClassifier` follows the model convention: `forward` returns logits, and `predict()` returns 0/1 labels.
+- `LinearClassifier` and `MLP(in_features, out_features, hidden_features=8)`, a one-hidden-layer ReLU network, follow the model convention: `forward` returns logits, and `predict()` returns 0/1 labels.
 - `Trainer.fit(model, data)` runs the epoch loop on CUDA when available and returns a history dict of per-epoch lists: `train_loss`, plus `val_loss` and `val_accuracy` when validation data is given. Notebooks wrap it in `pd.DataFrame(history)` to view it.
 - `accuracy` scores predictions against targets.
 - `plot_histories(histories, baseline=...)` compares runs, given as a dict of name to `fit` history. It draws one panel per metric (train loss, val loss, val accuracy) with one line per run, a dot at each run's best val-loss epoch, and a dashed majority-class baseline. It returns the figure and supports at most 8 runs, one per palette color.

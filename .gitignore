@@ -27,3 +27,4 @@ dist/
 # Competition data and outputs
 competitions/*/data/
 competitions/*/submissions/
+competitions/*/score.md
