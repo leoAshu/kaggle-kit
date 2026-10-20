@@ -18,6 +18,12 @@ class Trainer:
 
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
+        # Set by fit when validation data is given: the 1-based epoch with the lowest
+        # val loss and a copy of the model's weights at that epoch. The caller decides
+        # whether to restore them with model.load_state_dict(trainer.best_state).
+        self.best_epoch: int | None = None
+        self.best_state: dict[str, torch.Tensor] | None = None
+
     def prepare_model(self, model):
         self.model = model.to(self.device)
 
@@ -38,7 +44,10 @@ class Trainer:
         train_losses: list[float] = []
         val_losses: list[float] = []
         val_accs: list[float] = []
-        for _epoch in range(self.max_epochs):
+
+        self.best_epoch = None
+        self.best_state = None
+        for epoch in range(self.max_epochs):
             self.model.train()
 
             train_loss = 0.0
@@ -83,6 +92,14 @@ class Trainer:
 
                 val_losses.append(val_loss / n_val)
                 val_accs.append(val_acc / n_val)
+
+                if val_losses[-1] < min(val_losses[:-1], default=float('inf')):
+                    self.best_epoch = epoch + 1
+                    # state_dict holds the live tensors, so copy them or later epochs overwrite the snapshot.
+                    self.best_state = {
+                        k: v.detach().cpu().clone()
+                        for k, v in self.model.state_dict().items()
+                    }
 
         history = {'train_loss': train_losses}
         if val_loader is not None:
